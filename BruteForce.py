@@ -27,6 +27,9 @@ def bruteforce(s1:str ,s2:str):
     if len(s1) > len(s2):
         s1combs = {s1}
         s2combs = set()
+    elif len(s1) == len(s2):
+        s1combs = {s1}
+        s2combs = {s2}
     else:
         s1combs = set()
         s2combs = {s2}
@@ -49,9 +52,12 @@ def bruteforce(s1:str ,s2:str):
     return result
 
 
-s1 = input("enter first sequence1")
-s2 = input("Enter Second sequence2")
+s1 = input("Enter First sequence:   ")
+s2 = input("Enter Second sequence:  ")
 try:
     result = bruteforce(s1,s2)
+    print(result[0])
+    print(result[1])
+    print("Cost : ",result[2])
 except Exception:
     print("Something went wrong")
