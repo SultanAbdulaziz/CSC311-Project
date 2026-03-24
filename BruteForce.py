@@ -1,16 +1,20 @@
-#here
-
-#Abdulrahmanx
 def bruteforce(s1:str ,s2:str):
-    def generate_alignments(s: str,max_num_of_dashes: int,min_num_of_dashes: int,result_set: set):
-        if max_num_of_dashes == min_num_of_dashes : return
+
+    #this generates all possible alignments by adding a "-" each call then recursively call it self back until dashes left to be added = 0
+    #min num of dashes to add is of length of the longer sequence 
+    #max num of dashes is the sum of length of 2 sequences so we dont have "-" aligned with another "-"
+    max_num_of_dashes = len(s1) + len(s2)
+    min_num_of_dashes = abs(len(s2)-len(s1))
+    def generate_alignments(s: str,num_of_dashes: int,result_set: set):
+        if num_of_dashes == max_num_of_dashes+1: return
         l = list(s)
         for i in range(len(l)+1):
             formattedstring = l.copy()
             formattedstring.insert(i,"-")
-            result_set.add("".join(formattedstring))
-            generate_alignments(formattedstring,max_num_of_dashes-1,min_num_of_dashes,result_set)
-        
+            if num_of_dashes >= min_num_of_dashes: result_set.add("".join(formattedstring))
+            generate_alignments(formattedstring,num_of_dashes+1,result_set)
+
+    #this calculates the total cost of alignemt between 2 sequences by comparing each char
     def alignment_cost(s1:str,s2:str):
         def scoring_function(c1:str, c2:str):
             alpha = 2
@@ -23,7 +27,7 @@ def bruteforce(s1:str ,s2:str):
         for i in range(len(s1)):
             cost += scoring_function(s1[i],s2[i])
         return cost
-
+    #include the longer one only in the combinations since we need them to be of the same length the shorter one must have at leat one "-" so we dont add the original sequence itself
     if len(s1) > len(s2):
         s1combs = {s1}
         s2combs = set()
@@ -33,14 +37,17 @@ def bruteforce(s1:str ,s2:str):
     else:
         s1combs = set()
         s2combs = {s2}
-        
-    min_num_of_dashes = max(len(s1),(len(s2)))
-    max_num_of_dashes = len(s1)+len(s2)
-    
-    generate_alignments(s1,max_num_of_dashes,min_num_of_dashes,s1combs)
-    generate_alignments(s2,max_num_of_dashes,min_num_of_dashes,s2combs)
 
+    #max_num_of_dashes = len(s1)+len(s2)
+    
+    generate_alignments(s1,1,s1combs)
+    generate_alignments(s2,1,s2combs)
     minimal_cost = 100000
+    result = ["error","no alignment",0]
+
+    print(s1combs)
+    print(s2combs)
+
     for sequence1 in s1combs:
         for sequence2 in s2combs:
             if(len(sequence1) == len(sequence2)):
@@ -49,7 +56,7 @@ def bruteforce(s1:str ,s2:str):
                     minimal_cost = current_cost
                     result = [sequence1,sequence2,minimal_cost]
             else: continue
-    return result
+    return result 
 
 
 s1 = input("Enter First sequence:   ")
@@ -59,5 +66,7 @@ try:
     print(result[0])
     print(result[1])
     print("Cost : ",result[2])
-except Exception:
+except Exception as e:
     print("Something went wrong")
+    print(e)
+
