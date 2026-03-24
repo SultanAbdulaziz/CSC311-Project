@@ -37,16 +37,11 @@ def bruteforce(s1:str ,s2:str):
     else:
         s1combs = set()
         s2combs = {s2}
-
-    #max_num_of_dashes = len(s1)+len(s2)
     
     generate_alignments(s1,1,s1combs)
     generate_alignments(s2,1,s2combs)
     minimal_cost = 100000
     result = ["error","no alignment",0]
-
-    print(s1combs)
-    print(s2combs)
 
     for sequence1 in s1combs:
         for sequence2 in s2combs:
