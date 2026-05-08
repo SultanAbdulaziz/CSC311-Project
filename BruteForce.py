@@ -1,5 +1,5 @@
 def bruteforce(s1:str ,s2:str):
-
+    
     #this generates all possible alignments by adding a "-" each call then recursively call it self back until dashes left to be added = 0
     #min num of dashes to add is of length of the longer sequence 
     #max num of dashes is the sum of length of 2 sequences so we dont have "-" aligned with another "-"
@@ -40,9 +40,10 @@ def bruteforce(s1:str ,s2:str):
     
     generate_alignments(s1,1,s1combs)
     generate_alignments(s2,1,s2combs)
+    print(len(s1combs))
     minimal_cost = 100000
     result = ["error","no alignment",0]
-
+    #comparing each generated sequence of the 2 against the other if they are the same length.
     for sequence1 in s1combs:
         for sequence2 in s2combs:
             if(len(sequence1) == len(sequence2)):
