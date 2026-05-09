@@ -35,14 +35,11 @@ def LCS(s1:str,s2:str):
                 c[i][j] = max(c[i-1][j],c[i][j-1])
     w1 = []
     w2 = []
-    w = []
-    for row in c:
-        print(row)
+
     while n > 0 and m > 0:
         if s1[m-1] == s2[n-1]:
             w1.append(s1[m-1])
             w2.append(s2[n-1])
-            w.append(s1[m-1])
             n -= 1
             m -= 1
         elif c[m-1][n] > c[m][n-1]:
@@ -63,7 +60,6 @@ def LCS(s1:str,s2:str):
         w1.append(s1[m])
         w2.append("-")
     
-    return "".join(reversed(w1)), "".join(reversed(w2)),"".join(reversed(w))
+    return "".join(reversed(w1)), "".join(reversed(w2))
 
-DynamicProgramming("ABC","")
 

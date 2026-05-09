@@ -40,7 +40,6 @@ def bruteforce(s1:str ,s2:str):
     
     generate_alignments(s1,1,s1combs)
     generate_alignments(s2,1,s2combs)
-    print(len(s1combs))
     minimal_cost = 100000
     result = ["error","no alignment",0]
     #comparing each generated sequence of the 2 against the other if they are the same length.
@@ -54,15 +53,9 @@ def bruteforce(s1:str ,s2:str):
             else: continue
     return result 
 
+def Brute(s1:str ,s2:str):
+    w1,w2,Tcost= bruteforce(s1,s2)
+    print(w1, w2)
+    print(Tcost)
 
-s1 = input("Enter First sequence:   ")
-s2 = input("Enter Second sequence:  ")
-try:
-    result = bruteforce(s1,s2)
-    print(result[0])
-    print(result[1])
-    print("Cost : ",result[2])
-except Exception as e:
-    print("Something went wrong")
-    print(e)
 
